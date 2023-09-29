@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
+from datetime   import datetime
+import pytz 
 
 def home(request, year, month):
     user = "JP"
@@ -14,7 +16,15 @@ def home(request, year, month):
         year,
         month_num,
         
-    ).replace('\n', ''),  
+    ).replace('\n', ''), 
+
+    #get current year
+    now = datetime.now()
+    current_year= now.year 
+
+    #get current time
+    your_timezone = pytz.timezone('America/Chicago')
+    time = now.astimezone(your_timezone).strftime('%I:%M %p')
 
     cal = cal[0].replace('\n', '')
 
@@ -25,6 +35,8 @@ def home(request, year, month):
         'month': month,
         'month_num':month_num,
         'cal': cal,
+        'current_year': current_year,
+        'time' : time
         
         
         })

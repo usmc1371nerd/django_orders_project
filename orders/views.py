@@ -4,7 +4,7 @@ from calendar import HTMLCalendar
 from datetime   import datetime
 import pytz 
 
-def home(request, year, month):
+def home(request, year= datetime.now().year, month=datetime.now().strftime('%B')):
     user = "JP"
     month = month.title()
     #convert month from name to number
@@ -29,7 +29,8 @@ def home(request, year, month):
     cal = cal[0].replace('\n', '')
 
 
-    return render( request, 'home.html', {
+    return render( request, 
+        'orders/home.html', {
         'user':user, 
         'year':year, 
         'month': month,
